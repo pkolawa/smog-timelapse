@@ -1,9 +1,9 @@
-import mysql
+from mysql import connector
 
 
 class UseDatabase:
     def __init__(self):
-        cnx = mysql.connector.connect(user='root', password='i',
+        cnx = connector.connect(user='root', password='Skoda313100',
                                       host='localhost',
                                       database='datas')
         cursor = cnx.cursor()
@@ -11,10 +11,10 @@ class UseDatabase:
 
     def insertData(self, fileName, detectedData):
         addData = ("INSERT INTO datas "
-                        "(timelapse_name, frame_number, time_taken, weather_data, pollution_data, other) "
-                        "VALUES (%s, %s, %s, %s, %s)")
+                        "(id,timelapse_name, frame_number, time_taken, weather_data, pollution_data, other) "
+                        "VALUES (,%s, %s, %s, %s, %s)")
 
-        cursor.execute(addData, detectedData)
+        self.cursor.execute(addData, detectedData)
         self.cnx.commit()
         cursor.close()
 

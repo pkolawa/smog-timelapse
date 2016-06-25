@@ -18,6 +18,9 @@ class SmogTimelapse:
 	is_movie_set = False
 	is_fps_set = False
 	is_zip_set = False
+	drawer = DrawText()
+	pictures = EveryPicture()
+	database = UseDatabase()
 
 	while is_resolution_set == False:
 		chosen_width = int(input("Set pictures width: "))

@@ -7,10 +7,10 @@ class EveryPicture:
 	def __init__(self):
 
 
-	def makePictures(self):
-		for infile in os.listdir(str(sys.argv[1])):
+	def rotateAllPictures(self, directory, angle):
+		for infile in os.listdir(directory):
 			try:
 				im = Image.open(infile)
-				im.rotate(180).save(infile)
+				im.rotate(angle).save(infile)
 			except IOError:
 				pass

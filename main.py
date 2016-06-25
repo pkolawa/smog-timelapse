@@ -5,7 +5,7 @@
 ###
 
 
-import subprocess, math
+import subprocess, math, datetime, time
 import drawText, everyPicture, useDatabase
 
 
@@ -86,7 +86,13 @@ class SmogTimelapse:
 	chosen_filename = str(chosen_filename)
 
 	subprocess.run(["mkdir", chosen_filename])
-	subprocess.run(["raspistill", "-rot", "180", "-w", chosen_width, "-h", chosen_height, "-t", chosen_time, "-tl", chosen_interval, "-p", "0:0:1:1", "-op", "0", "-o", chosen_filename+"/"+chosen_filename+"_%04d.jpg"])
+	for now in range(0,chosen_time,chosen_interval):
+		timestamp_str = datetime.now()
+		subprocess.run(["raspistill", "-rot", "180", "-w", chosen_width, "-h", chosen_height, "-t", 1000, "-p", "0:0:1:1", "-op", "0", "-o", chosen_filename+"/"+timestamp_str+".jpg"])
+		database.insertData(chosen_filename, )
+		sleep_time = chosen_interval - 1000
+		time.sleep(sleep_time)
+
 	if movie_required == True:
 		half_fps = math.floor(movie_fps / 2)
 		half_fps = str(half_fps)

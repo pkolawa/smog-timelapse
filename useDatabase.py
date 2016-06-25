@@ -5,12 +5,11 @@ class UseDatabase:
     def __init__(self):
         cnx = connector.connect(user='root', password='Skoda313100',
                                       host='localhost',
-                                      database='datas')
+                                      database='datass')
         cursor = cnx.cursor()
 
-
     def insertData(self, fileName, detectedData):
-        addData = ("INSERT INTO datas "
+        addData = ("INSERT INTO datass "
                         "(id,timelapse_name, frame_number, time_taken, weather_data, pollution_data, other) "
                         "VALUES (,%s, %s, %s, %s, %s)")
 

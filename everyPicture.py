@@ -1,7 +1,7 @@
 from PIL import Image
 import os, drawText
 
-class EveryPicture:
+class EveryPicture():
 
 	def __init__(self):
 

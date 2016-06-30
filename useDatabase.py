@@ -1,33 +1,29 @@
-from mysql import connector
+import MySQLdb
 
 
 class UseDatabase:
     def __init__(self):
-        cnx = connector.connect(user='root', password='Skoda313100',
+        self.cnx = MySQLdb.connect(user='root', passwd='Skoda313100',
                                       host='localhost',
-                                      database='datass')
-        cursor = cnx.cursor()
+                                      db='timelapses')
 
-    def insertData(self, fileName, detectedData):
-        addData = ("INSERT INTO datass "
-                        "(id,timelapse_name, frame_number, time_taken, weather_data, pollution_data, other) "
-                        "VALUES (,%s, %s, %s, %s, %s)")
-
-        self.cursor.execute(addData, detectedData)
+    def insertData(self, fileName, frame_number):
+        addData = ("""INSERT INTO datass (timelapse_name, frame_number) VALUES ('"""+str(fileName)+"""', """+str(frame_number)+""")""")
+        self.cnx.query(addData)
         self.cnx.commit()
-        cursor.close()
 
-    def getRow(self, timelapseName, frameNumber):
-        query = ("SELECT * FROM datas "
-                 "WHERE timelapse_name = %s AND frame_number = %s")
-        cnx.execute(query, (timelapseName, frameNumber))
-        cursor.close()
+    def getRow(self, frameNumber):
+        selection = ("""SELECT * FROM datass WHERE frame_number = '"""+str(frameNumber)+"""'""")
+        self.cnx.query(selection)
+        results = self.cnx.use_result()
+        return results
 
-    def getTimelapse(self, timelapseName):
-        query = ("SELECT * FROM datas "
-                 "WHERE timelapse_name = %s ORDER BY frame_number ASC")
-        cnx.execute(query,(timelapseName))
-        cursor.close()
+    def getTimelapse(self, fileName):
+        selection = ("""SELECT * FROM datass WHERE timelapse_name = '"""+str(fileName)+"""' ORDER BY frame_number ASC""")
+        self.cnx.query(selection)
+        results = self.cnx.use_result()
+        resulty = results.fetchall()
+        return resulty
 
     def closeDatabase(self):
         cnx.close()

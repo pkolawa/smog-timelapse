@@ -2,7 +2,7 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw
 
-class DrawText:
+class DrawText():
 
     # draw.text((x, y),"Sample Text",(r,g,b))
     draw.text((1164, 742),"13:55",(255,255,255),font=font_light_160)
